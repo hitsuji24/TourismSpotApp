@@ -1,12 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <title>A to B AR</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 </head>
-<body>
-<a href="sanwa.html">sanwa</a>
-<a href="park.html">park</a>
+<body style="margin: 0; overflow: hidden;">
+    
+
+
+  <a-scene
+    vr-mode-ui="enabled: false"
+    embedded
+    arjs="sourceType: webcam; debugUIEnabled: false;"
+  >
+    <a-image
+      id="image"
+      src="img/flower.jpg"
+      look-at="[gps-camera]"
+      scale="5 5 5" //オブジェクトのX軸、Y軸、Z軸方向のスケールを指定→オブジェクトの大きさを全方向に5倍に拡大
+      <?-- 全部の画像を5倍にする必要はないと思うので、画像によってスケールを変更させるか、もともとセットする画像を標準化するかしたほうがよいか -->
+      
+    </a-image>
+      gps-entity-place="latitude: 35.60090563690118; longitude: 139.5248696575226;"
+      visible="false"
+    ></a-image>
+
+    <a-camera gps-camera rotation-reader></a-camera>
+  </a-scene>
+
+  <script>
+    const aPoint = {
+      lat: 35.602249593822776,
+      lon: 139.52413942615024
+    };
+
+    const bPoint = {
+      lat: 35.60090563690118,
+      lon: 139.5248696575226
+    };
+
+    const distance = getDistance(aPoint, bPoint);
+    const bearing = getBearing(aPoint, bPoint);
+
+    const image = document.getElementById('image');
+    image.setAttribute('look-at', `[gps-camera]`);
+    image.setAttribute('visible', 'true');
+
+    function getDistance(pointA, pointB) {
+      // 2点間の距離を計算する関数
+      // 参考: https://www.movable-type.co.uk/scripts/latlong.html
+    }
+
+    function getBearing(pointA, pointB) {
+      // 2点間の方位角を計算する関数
+      // 参考: https://www.movable-type.co.uk/scripts/latlong.html
+    }
+
+    window.addEventListener('gps-camera-update-position', (event) => {
+      const distance = getDistance(aPoint, {
+        lat: event.detail.position.latitude,
+        lon: event.detail.position.longitude
+      });
+
+      if (distance > 10) {
+        // A地点から10m以上離れている場合は非表示
+        image.setAttribute('visible', 'false');
+      } else {
+        // A地点から10m以内の場合は表示
+        image.setAttribute('visible', 'true');
+      }
+    });
+  </script>
 </body>
 </html>
