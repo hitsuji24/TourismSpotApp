@@ -1,16 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <title>THE spot</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<a href="flower.html">花の画像、スケール5</a>
-<a href="yokonaga.html">横長の画像、スケール30</a>
-<a href="kyoryu.html">恐竜の画像、スケールなし</a>
-<p><img src="img/flower.jpg" alt="Dummy"></p>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-6/css/6-1-6.css">
 
+ 
+</head>
+
+<body>
+    <header>THE spot</header>
+    <div class="user"></div>
+
+    <!-- 特集を横カルーセルで表示 -->
+    <div class="features">
+        特集
+        <ul class="slider">
+<li><img src="img/flower.jpg" alt=""></li>
+<li><img src="img/kiminona.jpg" alt=""></li>
+<li><img src="img/kyoryu.jpg" alt=""></li>
+        </ul>
+        
+    </div>
+
+    <!-- おすすめスポットを横カルーセルで表示 -->
+    <div class="spot-recommend">
+        あなたにおすすめ
+        <a href="flower.html">花の画像、スケール5</a>
+        <a href="yokonaga.html">横長の画像、スケール30</a>
+        <a href="kyoryu.html">恐竜の画像、スケールなし</a>
+    </div>
+
+    <!-- 人気のスポットをカルーセルで表示 -->
+    人気のスポット
+    <div class="spot-popular">
+        <a href="flower.html">花の画像、スケール5</a>
+        <a href="yokonaga.html">横長の画像、スケール30</a>
+        <a href="kyoryu.html">恐竜の画像、スケールなし</a>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="#home" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+        </a>
+        <a href="#works" class="nav-item">
+            <i class="fas fa-film"></i>
+            <span>作品</span>
+        </a>
+        <a href="#map" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>スポット</span>
+        </a>
+        <a href="#mylist" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>マイリスト</span>
+        </a>
+        <a href="#news" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>お知らせ</span>
+        </a>
+    </nav>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="main.js"></script>
+    <script src="js/6-1-6.js"></script>
 
 </body>
+
 </html>
