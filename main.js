@@ -19,7 +19,7 @@
     {
         breakpoint: 426,//モニターの横幅が426px以下の見せ方
         settings: {
-            slidesToShow: 1,//スライドを画面に1枚見せる
+            slidesToShow: 2,//スライドを画面に1枚見せる
             slidesToScroll: 1,//1回のスクロールで1枚の写真を移動して見せる
         }
     }
