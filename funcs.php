@@ -1,8 +1,8 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    // セッションが開始されていない場合のみセッションを開始する
-    session_start();
-}
+// if (session_status() === PHP_SESSION_NONE) {
+//     // セッションが開始されていない場合のみセッションを開始する
+//     session_start();
+// }
 //XSS対応（ echoする場所で使用！それ以外はNG ）
 function h($str)
 {
@@ -73,13 +73,20 @@ function sschk()
 }
 
 // データベースから全スポットを取得する
-function getAllSpots() {
+function getAllSpots($userLat, $userLon)
+{
     try {
-      $pdo = db_conn();
-      $stmt = $pdo->query("SELECT * FROM spots");
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pdo = db_conn();
+        $stmt = $pdo->prepare("SELECT *, ( 6371 * acos(cos(radians(:userLat)) * cos(radians(main_latitude)) * cos(radians(main_longitude) - radians(:userLon)) + sin(radians(:userLat)) * sin(radians(main_latitude))) ) AS distance 
+        FROM spots
+        ORDER BY ( 6371 * acos(cos(radians(:userLat)) * cos(radians(main_latitude)) * cos(radians(main_longitude) - radians(:userLon)) + sin(radians(:userLat)) * sin(radians(main_latitude))) )
+        ");
+        $stmt->bindValue(':userLat', $userLat);
+        $stmt->bindValue(':userLon', $userLon);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-      echo 'データベースエラー: ' . $e->getMessage();
-      exit();
+        echo 'データベースエラー: ' . $e->getMessage();
+        exit();
     }
-  }
+}

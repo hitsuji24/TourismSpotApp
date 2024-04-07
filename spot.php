@@ -32,23 +32,7 @@
         <button type="submit">検索</button>
     </form>
 
-    <div id="spot-list">
-        <?php
 
-        include("funcs.php");
-        // データベースから全スポットを取得
-        $spots = getAllSpots();
-
-        foreach ($spots as $spot) {
-            echo '<div class="spot">';
-            echo '<h2>' . htmlspecialchars($spot['name']) . '</h2>';
-            echo '<p>カテゴリ: ' . htmlspecialchars($spot['category']) . '</p>';
-            echo '<p>住所: ' . htmlspecialchars($spot['address']) . '</p>';
-            echo '<p>登録日: ' . htmlspecialchars($spot['created_at']) . '</p>';
-            echo '</div>';
-        }
-        ?>
-    </div>
 
     <script>
         //  navigator.geolocation.getCurrentPosition()をPromiseでラップし、非同期処理を扱いやすくしています。
@@ -112,6 +96,25 @@
         });
     </script>
 
+    <div id="spot-list">
+        <?php
+
+        include("funcs.php");
+        // データベースから全スポットを取得
+        $userLat = $_POST['userLat'] ?? null;
+        $userLon = $_POST['userLon'] ?? null;
+        $spots = getAllSpots($userLat, $userLon);
+
+        foreach ($spots as $spot) {
+            echo '<div class="spot">';
+            echo '<h2>' . htmlspecialchars($spot['name']) . '</h2>';
+            echo '<p>カテゴリ: ' . htmlspecialchars($spot['category']) . '</p>';
+            echo '<p>住所: ' . htmlspecialchars($spot['address']) . '</p>';
+            echo '<p>登録日: ' . htmlspecialchars($spot['created_at']) . '</p>';
+            echo '</div>';
+        }
+        ?>
+    </div>
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item">
             <i class="fas fa-home"></i>
