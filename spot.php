@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
-    <title>THE spot</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アニメ聖地スポット一覧</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-6/css/6-1-6.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7PxvtfUZve7uukvoUBa0s5GvERI9Dk2s&callback=initMap" async defer></script>
+
 </head>
 
 <body>
+    <h1>アニメ聖地スポット一覧</h1>
+
+    <!-- 検索フォーム -->
     <form id="search-form">
-        <input type="text" id="keyword" placeholder="キーワード">
-        <select id="category">
-            <option value="">カテゴリを選択</option>
+        <input type="text" name="keyword" id="keyword" placeholder="キーワードを入力">
+        <select name="sort" id="sort">
+            <option value="created_at">登録日順</option>
+            <option value="distance">距離順</option>
+        </select>
+        <select name="category" id="category">
+            <option value="">すべて</option>
             <option value="アニメ">アニメ</option>
             <option value="漫画">漫画</option>
             <option value="映画">映画</option>
@@ -25,98 +30,24 @@
             <option value="歴史">歴史</option>
             <option value="その他">その他</option>
         </select>
-        <select id="sort">
-            <option value="distance">現在地からの距離順</option>
-            <option value="created_at">登録日順</option>
-        </select>
         <button type="submit">検索</button>
     </form>
 
-
-
-    <script>
-        //  navigator.geolocation.getCurrentPosition()をPromiseでラップし、非同期処理を扱いやすくしています。
-        // 位置情報の取得に失敗した場合のエラーハンドリングを行っています。エラーが発生した場合は、userLatとuserLonにnullを設定しています。
-        // 位置情報の取得が完了してから、Ajax通信を実行するようにしています。
-        $(document).ready(function() {
-            $('#search-form').submit(function(event) {
-                event.preventDefault();
-
-                var keyword = $('#keyword').val();
-                var category = $('#category').val();
-                var sort = $('#sort').val();
-
-                // 位置情報の取得
-                var userLocation = new Promise(function(resolve, reject) {
-                    navigator.geolocation.getCurrentPosition(resolve, reject, {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
-                        maximumAge: 0
-                    });
-                });
-
-                userLocation
-                    .then(function(position) {
-                        var userLat = position.coords.latitude;
-                        var userLon = position.coords.longitude;
-                        return {
-                            userLat: userLat,
-                            userLon: userLon
-                        };
-                    })
-                    .catch(function(error) {
-                        console.warn('位置情報の取得に失敗しました。', error.message);
-                        $('#error-message').text('位置情報の取得に失敗しました。' + error.message);
-                        return {
-                            userLat: null,
-                            userLon: null
-                        };
-                    })
-                    .then(function(location) {
-                        $.ajax({
-                            url: 'search.php',
-                            type: 'POST',
-                            data: {
-                                keyword: keyword,
-                                category: category,
-                                sort: sort,
-                                userLat: location.userLat,
-                                userLon: location.userLon
-                            },
-                            success: function(response) {
-                                $('#spot-list').html(response);
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('検索リクエストに失敗しました。', error);
-                                $('#error-message').text('検索リクエストに失敗しました。' + error);
-                            }
-                        });
-                    });
-            });
-        });
-    </script>
-
-    <div id="spot-list">
-        <?php
-
-        include("funcs.php");
-        // データベースから全スポットを取得
-        $userLat = $_POST['userLat'] ?? null;
-        $userLon = $_POST['userLon'] ?? null;
-        $spots = getAllSpots($userLat, $userLon);
-
-        foreach ($spots as $spot) {
-            echo '<div class="spot">';
-            echo '<h2>' . htmlspecialchars($spot['name']) . '</h2>';
-            echo '<p>カテゴリ: ' . htmlspecialchars($spot['category']) . '</p>';
-            echo '<p>住所: ' . htmlspecialchars($spot['address']) . '</p>';
-            echo '<p>登録日: ' . htmlspecialchars($spot['created_at']) . '</p>';
-            echo '</div>';
-        }
-        ?>
+    <!-- 表示切り替えボタン -->
+    <div id="view-switch">
+        <button id="list-view-btn">リスト表示</button>
+        <button id="map-view-btn">マップ表示</button>
     </div>
+
+    <!-- コンテンツ -->
+    <div id="content">
+        <div id="spot-list" class="show"></div>
+        <div id="map" class="hide"></div>
+    </div>
+
+    <!-- ボトムナビ -->
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
+        <a href="index.html" class="nav-item active">
             <i class="fas fa-home"></i>
             <span>ホーム</span>
         </a>
@@ -124,7 +55,7 @@
             <i class="fas fa-film"></i>
             <span>作品</span>
         </a>
-        <a href="spot.html" class="nav-item active">
+        <a href="spot.php" class="nav-item">
             <i class="fas fa-map-marker-alt"></i>
             <span>スポット</span>
         </a>
@@ -138,9 +69,7 @@
         </a>
     </nav>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="main.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

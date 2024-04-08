@@ -1,136 +1,69 @@
 <?php
+ //DB接続
+ include("funcs.php");
+ $pdo = db_conn();
+ 
+// 検索条件の取得
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'created_at';
+$category = isset($_GET['category']) ? $_GET['category'] : '';
 
-session_start();
 
-try {
-    //1.  DB接続します
-    include("funcs.php");
-    $pdo = db_conn();
+// 検索クエリの作成
+$sql = "SELECT * FROM spots";
+$conditions = [];
 
-    // 検索条件の取得
-    // POST配列のキーの存在をチェック→存在しない場合はデフォルト値を設定
-    $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
-    $category = isset($_POST['category']) ? $_POST['category'] : '';
-    $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
-    // $keyword = $_POST['keyword'];
-    // $category = $_POST['category'];
-    // $sort = $_POST['sort'];
-
-    // SQLクエリの構築
-    $sql = "SELECT * FROM spots";
-    $conditions = [];
-
-    if ($keyword) {
-        $conditions[] = "(name LIKE :keyword OR description LIKE :keyword OR address LIKE :keyword)";
-    }
-
-    if ($category) {
-        $conditions[] = "category = :category";
-    }
-
-    if (!empty($conditions)) {
-        $sql .= " WHERE " . implode(" AND ", $conditions);
-    }
-
-    if ($sort === 'distance') {
-        $sql .= " ORDER BY distance";
-    } else {
-        $sql .= " ORDER BY " . $sort;
-    }
-
-    // プリペアドステートメントの準備
-    $stmt = $pdo->prepare($sql);
-
-    // プレースホルダへの値のバインド
-    if ($keyword) {
-        $stmt->bindValue(':keyword', '%' . $keyword . '%');
-    }
-
-    if ($category) {
-        $stmt->bindValue(':category', $category);
-    }
-
-    // クエリの実行
-    $stmt->execute();
-
-    // 検索結果の取得
-    $spots = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // 現在地からの距離順の場合の処理
-    if ($sort === 'distance') {
-        // ユーザーの現在地の緯度経度を取得 isset関数で値があるかどうかを確認
-        $userLat = isset($_POST['userLat']) ? $_POST['userLat'] : '';
-        $userLon = isset($_POST['userLon']) ? $_POST['userLon'] : '';
-
-        // // 距離計算関数
-        // function calculateDistance($lat1, $lon1, $lat2, $lon2)
-        // {
-        //     $earthRadius = 6371; // 地球の半径（km）
-        //     $dLat = deg2rad($lat2 - $lat1);
-        //     $dLon = deg2rad($lon2 - $lon1);
-        //     $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon / 2) * sin($dLon / 2);
-        //     $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        //     $distance = $earthRadius * $c;
-        //     return $distance;
-        // }
-        // 距離計算カラムをSELECT句に追加
-        $sql = "SELECT *, ( 6371 * acos(cos(radians(:userLat)) * cos(radians(main_latitude)) * cos(radians(main_longitude) - radians(:userLon)) + sin(radians(:userLat)) * sin(radians(main_latitude))) ) AS distance FROM spots";
-
-        // デバッグ出力: SQLクエリの確認
-        echo "SQL Query: " . $sql . "<br>";
-
-        // WHERE句の条件を追加
-        if (!empty($conditions)) {
-            $sql .= " WHERE " . implode(" AND ", $conditions);
-        }
-
-        // 距離の昇順でソート
-        $sql .= " ORDER BY ( 6371 * acos(cos(radians(:userLat)) * cos(radians(main_latitude)) * cos(radians(main_longitude) - radians(:userLon)) + sin(radians(:userLat)) * sin(radians(main_latitude))) )";
-
-        // デバッグ出力: 完成したSQLクエリの確認
-        echo "Final SQL Query: " . $sql . "<br>";
-
-        // プリペアドステートメントの準備
-        $stmt = $pdo->prepare($sql);
-
-        // プレースホルダへの値のバインド
-        if ($keyword) {
-            $stmt->bindValue(':keyword', '%' . $keyword . '%');
-        }
-
-        if ($category) {
-            $stmt->bindValue(':category', $category);
-        }
-
-        $stmt->bindValue(':userLat', $userLat);
-        $stmt->bindValue(':userLon', $userLon);
-
-        // クエリの実行
-        $stmt->execute();
-
-        // 検索結果の取得
-        $spots = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // 検索結果のHTML生成
-    $result = '';
-    foreach ($spots as $spot) {
-        $result .= '<div class="spot">';
-        $result .= '<h2>' . $spot['name'] . '</h2>';
-        $result .= '<p>カテゴリ: ' . $spot['category'] . '</p>';
-        $result .= '<p>住所: ' . $spot['address'] . '</p>';
-        if ($sort === 'distance') {
-            $result .= '<p>現在地からの距離: 約' . round($spot['distance'], 2) . ' km</p>';
-        }
-        $result .= '<p>登録日: ' . $spot['created_at'] . '</p>';
-        $result .= '</div>';
-    }
-
-    // 検索結果の返却
-    echo $result;
-} catch (PDOException $e) {
-    // エラーハンドリング
-    $errorMessage = 'データベースエラーが発生しました。' . $e->getMessage();
-    error_log($errorMessage);
-    echo '<div id="error-message">' . $errorMessage . '</div>';
+if (!empty($keyword)) {
+    $conditions[] = "(name LIKE '%$keyword%' OR description LIKE '%$keyword%' OR address LIKE '%$keyword%')";
 }
+
+if (!empty($category)) {
+    $conditions[] = "category = '$category'";
+}
+
+if (!empty($conditions)) {
+    $sql .= " WHERE " . implode(' AND ', $conditions);
+}
+
+if ($sort === 'distance') {
+    $sql .= " ORDER BY (POW(69.1 * (main_latitude - ?), 2) + POW(69.1 * (? - main_longitude) * COS(main_latitude / 57.3), 2))";
+} else {
+    $sql .= " ORDER BY created_at DESC";
+}
+
+$stmt = $pdo->prepare($sql);
+
+if ($sort === 'distance') {
+    $userLatitude = $_GET['latitude'];
+    $userLongitude = $_GET['longitude'];
+    $stmt->bindValue(1, $userLatitude);
+    $stmt->bindValue(2, $userLongitude);
+}
+
+$stmt->execute();
+$spots = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// 検索結果をJSON形式で返す
+$response = [
+    'list' => '',
+    'spots' => []
+];
+
+foreach ($spots as $spot) {
+    $response['list'] .= '<div class="spot">';
+    $response['list'] .= '<h2>' . $spot['name'] . '</h2>';
+    $response['list'] .= '<p>' . $spot['description'] . '</p>';
+    $response['list'] .= '<p>カテゴリー: ' . $spot['category'] . '</p>';
+    $response['list'] .= '<p>住所: ' . $spot['address'] . '</p>';
+    $response['list'] .= '</div>';
+    
+    $response['spots'][] = [
+        'name' => $spot['name'],
+        'main_latitude' => $spot['main_latitude'],
+        'main_longitude' => $spot['main_longitude']
+    ];
+}
+
+header('Content-Type: application/json');
+echo json_encode($response);
+?>
