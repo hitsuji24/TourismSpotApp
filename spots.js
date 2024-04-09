@@ -25,7 +25,7 @@ $(function () {
         var category = $('#category').val();
 
         $.ajax({
-            url: 'search.php',
+            url: 'search_spots.php',
             type: 'GET',
             data: {
                 keyword: keyword,

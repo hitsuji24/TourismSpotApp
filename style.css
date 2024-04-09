@@ -143,41 +143,24 @@ body {
 ===================================*/
 #content {
   position: relative;
-  width: 400px;
-}
-
-#spot-list,
-#map {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  transition: opacity 0.3s;
+}
+
+#spot-list, #map {
+  width: 100%;
+display: block;
+}
+
+#spot-list.hide, #map.hide {
+display: none;
 }
 
 #map {
-  height: 800px;
+  height: 400px;
 }
 
 @media screen and (max-width: 767px) {
   #map {
     height: 250px;
   }
-}
-#view-switch {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.hide {
-  opacity: 0;
-  pointer-events: none;
 }

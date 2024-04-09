@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7PxvtfUZve7uukvoUBa0s5GvERI9Dk2s&callback=initMap" async defer></script>
-
+    <script src=".gitignore\config.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
 </head>
 
 <body>
@@ -51,7 +51,7 @@
             <i class="fas fa-home"></i>
             <span>ホーム</span>
         </a>
-        <a href="works.html" class="nav-item">
+        <a href="works.php" class="nav-item">
             <i class="fas fa-film"></i>
             <span>作品</span>
         </a>
