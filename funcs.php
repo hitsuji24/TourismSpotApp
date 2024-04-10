@@ -22,11 +22,11 @@ function db_conn()
 
         //localhost以外＊＊自分で書き直してください！！＊＊
         if ($_SERVER["HTTP_HOST"] != 'localhost') {
-            $db_name = "hitsuji-waiwai_gs_tourismspot	";  //データベース名
+            $db_name = "hitsuji-waiwai_gs_tourismspot";  //データベース名
             $db_id   = "hitsuji-waiwai";  //アカウント名（さくらコントロールパネルに表示されています）
-            $config = require 'C:\Users\C:\Users\2xx4x\Desktop\config.php';
-            $db_pw = $config['db']['password'];;  //パスワード(さくらサーバー最初にDB作成する際に設定したパスワード)
-            $db_host = "mysql626.db.sakura.ne.jp"; //例）mysql**db.ne.jp...
+            require 'config/config_db.php';
+            $db_pw = db_pw;  //パスワード(さくらサーバー最初にDB作成する際に設定したパスワード)
+            $db_host = "mysql57.hitsuji-waiwai.sakura.ne.jp"; //例）mysql**db.ne.jp...
         }
         return new PDO('mysql:dbname=' . $db_name . ';charset=utf8;host=' . $db_host, $db_id, $db_pw);
     } catch (PDOException $e) {
@@ -34,7 +34,8 @@ function db_conn()
     }
 }
 
-// データベース接続確認用
+
+//spotの検索でJSONのエラーが起きていたのはこれが原因ぽい
 // try {
 //     $pdo = db_conn();
 //     if ($pdo->getAttribute(PDO::ATTR_CONNECTION_STATUS)) {

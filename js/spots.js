@@ -40,7 +40,8 @@ $(function () {
                 $('#spot-list').html(data.list);
                 updateMap(data.spots);
             })
-            .fail(function () {
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error('検索に失敗しました:', textStatus, errorThrown);
                 alert('検索に失敗しました');
             });
     });

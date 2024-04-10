@@ -43,7 +43,7 @@
     <!-- コンテンツ -->
     <div id="works-list"></div>
     
-    <script src="works.js"></script>
+    <script src="js/works.js"></script>
 
     <!-- ボトムナビ -->
     <nav class="bottom-nav">
@@ -72,7 +72,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/6-1-6.js"></script>
 
 </body>

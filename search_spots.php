@@ -26,7 +26,8 @@ if (!empty($conditions)) {
 }
 
 if ($sort === 'distance') {
-    $sql .= " ORDER BY (POW(69.1 * (main_latitude - ?), 2) + POW(69.1 * (? - main_longitude) * COS(main_latitude / 57.3), 2))";
+    // $sql .= " ORDER BY (POW(69.1 * (main_latitude - ?), 2) + POW(69.1 * (? - main_longitude) * COS(main_latitude / 57.3), 2))";
+    $sql .= " ORDER BY (6371 * acos(cos(radians(?)) * cos(radians(main_latitude)) * cos(radians(main_longitude) - radians(?)) + sin(radians(?)) * sin(radians(main_latitude))))";
 } else {
     $sql .= " ORDER BY created_at DESC";
 }
@@ -38,6 +39,7 @@ if ($sort === 'distance') {
     $userLongitude = $_GET['longitude'];
     $stmt->bindValue(1, $userLatitude);
     $stmt->bindValue(2, $userLongitude);
+    $stmt->bindValue(3, $userLatitude);
 }
 
 $stmt->execute();
@@ -65,5 +67,7 @@ foreach ($spots as $spot) {
 }
 
 header('Content-Type: application/json');
-echo json_encode($response);
+//日本語文字列をエスケープせずにエンコード JSON_UNESCAPED_UNICODE 
+//日本語の文字列がそのままJSONエンコードされると有効なJSON形式ではなくなるため
+echo json_encode($response, JSON_UNESCAPED_UNICODE);
 ?>

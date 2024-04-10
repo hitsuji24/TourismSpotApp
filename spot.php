@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <script src=".gitignore\config.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+    <?php require 'config/config_googlemap.php'; ?>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY; ?>&callback=initMap" async defer></script>
 </head>
 
 <body>
@@ -69,7 +69,7 @@
         </a>
     </nav>
 
-    <script src="script.js"></script>
+    <script src="js/spots.js"></script>
 </body>
 
 </html>
