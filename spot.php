@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>アニメ聖地スポット一覧</title>
+    <title>Vamilu</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>THE spot</title>
+    <title>Vamilu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -16,6 +16,20 @@
 
 </head>
 <body>
+<?php
+// お気に入り登録したスポットを取得するDBクエリを実行
+$stmt = $pdo->prepare("SELECT spots.* FROM favorite_spots INNER JOIN spots ON favorite_spots.spot_id = spots.id WHERE favorite_spots.user_id = :user_id");
+$stmt->bindValue(":user_id", $userId, PDO::PARAM_INT);
+$stmt->execute();
+$favoriteSpots = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<h2>お気に入りスポット</h2>
+<ul>
+    <?php foreach ($favoriteSpots as $spot) : ?>
+        <li><a href="detail.php?id=<?= $spot['id'] ?>"><?= htmlspecialchars($spot['name']) ?></a></li>
+    <?php endforeach; ?>
+</ul>
 
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item">
