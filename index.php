@@ -5,7 +5,6 @@ session_start();
 if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
     $isLoggedIn = true;
     $userName = $_SESSION["name"];
-    $kanriFlg = $_SESSION["kanri_flg"];
 } else {
     $isLoggedIn = false;
 }
@@ -46,16 +45,15 @@ if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
                         $result = $stmt->fetch(PDO::FETCH_ASSOC);
                         echo $result["count"];
                     } else {
-                        echo "0"; // または適切なデフォルト値を表示
+                        echo "0"; // デフォルトで0を表示
                     }
                     ?>
                 </p>
-                <?php if ($kanriFlg == 1) : ?>
-                    <p><a href="admin.php">管理者ページ</a></p>
-                <?php endif; ?>
                 <p><a href="logout.php">ログアウト</a></p>
+            
             <?php else : ?>
                 <a href="login.php">ログイン</a>
+                <a href="signup.php">新規登録</a>
             <?php endif; ?>
         </div>
     </header>

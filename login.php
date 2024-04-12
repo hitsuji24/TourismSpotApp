@@ -16,8 +16,8 @@
 
 <!-- lLOGINogin_act.php は認証処理用のPHPです。 -->
 <form name="form1" action="login_act.php" method="post">
-ID:<input type="text" name="lid" />
-PW:<input type="password" name="lpw" />
+メールアドレス:<input type="email" name="email" />
+パスワード:<input type="password" name="password" />
 <input type="submit" value="LOGIN" />
 </form>
 

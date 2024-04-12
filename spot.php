@@ -47,27 +47,23 @@
 
     <!-- ボトムナビ -->
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>ホーム</span>
-        </a>
-        <a href="works.php" class="nav-item">
-            <i class="fas fa-film"></i>
-            <span>作品</span>
-        </a>
-        <a href="spot.php" class="nav-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>スポット</span>
-        </a>
-        <a href="mylist.html" class="nav-item">
-            <i class="fas fa-heart"></i>
-            <span>マイリスト</span>
-        </a>
-        <a href="announce.html" class="nav-item">
-            <i class="fas fa-bell"></i>
-            <span>お知らせ</span>
-        </a>
-    </nav>
+            <a href="index.php" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>ホーム</span>
+            </a>
+            <a href="works.php" class="nav-item">
+                <i class="fas fa-film"></i>
+                <span>作品</span>
+            </a>
+            <a href="spot.php" class="nav-item active">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>スポット</span>
+            </a>
+            <a href="mylist.php" class="nav-item">
+                <i class="fas fa-heart"></i>
+                <span>マイリスト</span>
+            </a>
+        </nav>
 
     <script src="js/spots.js"></script>
 </body>

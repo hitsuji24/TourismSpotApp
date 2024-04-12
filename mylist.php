@@ -17,6 +17,21 @@
 </head>
 <body>
 <?php
+
+include("funcs.php");
+$pdo = db_conn(); 
+
+// セッション開始
+session_start();
+
+// ログインしていない場合はログインページにリダイレクト
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
+$userId = $_SESSION["user_id"];
+
 // お気に入り登録したスポットを取得するDBクエリを実行
 $stmt = $pdo->prepare("SELECT spots.* FROM favorite_spots INNER JOIN spots ON favorite_spots.spot_id = spots.id WHERE favorite_spots.user_id = :user_id");
 $stmt->bindValue(":user_id", $userId, PDO::PARAM_INT);
@@ -31,28 +46,24 @@ $favoriteSpots = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endforeach; ?>
 </ul>
 
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>ホーム</span>
-        </a>
-        <a href="works.php" class="nav-item">
-            <i class="fas fa-film"></i>
-            <span>作品</span>
-        </a>
-        <a href="spot.html" class="nav-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>スポット</span>
-        </a>
-        <a href="mylist.html" class="nav-item active">
-            <i class="fas fa-heart"></i>
-            <span>マイリスト</span>
-        </a>
-        <a href="announce.html" class="nav-item">
-            <i class="fas fa-bell"></i>
-            <span>お知らせ</span>
-        </a>
-    </nav>
+<nav class="bottom-nav">
+            <a href="index.php" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>ホーム</span>
+            </a>
+            <a href="works.php" class="nav-item">
+                <i class="fas fa-film"></i>
+                <span>作品</span>
+            </a>
+            <a href="spot.php" class="nav-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>スポット</span>
+            </a>
+            <a href="mylist.php" class="nav-item active">
+                <i class="fas fa-heart"></i>
+                <span>マイリスト</span>
+            </a>
+        </nav>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
