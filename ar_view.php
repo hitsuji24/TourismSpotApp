@@ -31,9 +31,15 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="utf-8">
     <title>AR View - <?= h($spot['name']) ?></title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
+
+<!-- GPS強度の表示 -->
+<div id="gps-strength" class="gps-strength-icon">GPS強度</div>
+
+
 
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs>
@@ -75,7 +81,7 @@ if (isset($_GET['id'])) {
         arImage.setAttribute('visible', 'false');
 
 
-         // 2点間の距離を計算する関数
+        // 2点間の距離を計算する関数
         // 参考: https://www.movable-type.co.uk/scripts/latlong.html
         function getDistance(pointA, pointB) {
             const R = 6371e3; // metres
@@ -93,7 +99,7 @@ if (isset($_GET['id'])) {
             return d;
         }
 
-        
+
         // 2点間の方位角を計算する関数
         // 参考: https://www.movable-type.co.uk/scripts/latlong.html
         function getBearing(pointA, pointB) {
@@ -108,6 +114,20 @@ if (isset($_GET['id'])) {
             const θ = Math.atan2(y, x);
             const brng = (θ * 180 / Math.PI + 360) % 360; // in degrees
             return brng;
+        }
+
+
+        // GPSの強度を表示する関数
+        const gpsStrengthIcon = document.querySelector('#gps-strength');
+
+        function updateGpsStrength(accuracy) {
+            let strength = 0;
+            if (accuracy < 30) {
+                strength = 2;
+            } else if (accuracy < 50) {
+                strength = 1;
+            }
+            gpsStrengthIcon.setAttribute('data-strength', strength);
         }
 
         window.addEventListener('gps-camera-update-position', (event) => {

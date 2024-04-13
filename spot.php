@@ -45,6 +45,9 @@
         <div id="map" class="hide"></div>
     </div>
 
+    <!-- スポット追加ボタン -->
+    <a href="spot_add.php" class="add-spot-button">+</a>
+
     <!-- ボトムナビ -->
     <nav class="bottom-nav">
             <a href="index.php" class="nav-item">

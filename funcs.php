@@ -91,3 +91,31 @@ function getAllSpots($userLat, $userLon)
         exit();
     }
 }
+
+/**
+ * 画像アップロード処理
+ *
+ * @param array $uploaded_file $_FILES['image']の値
+ * @return string|null アップロードされた画像のパス（失敗した場合はnull）
+ */
+function upload_image($uploaded_file) {
+    $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $extension = pathinfo($uploaded_file['name'], PATHINFO_EXTENSION);
+    if (!in_array(strtolower($extension), $allowed_extensions)) {
+        return null;
+    }
+
+    $max_size = 1024 * 1024 * 5; // 5MB
+    if ($uploaded_file['size'] > $max_size) {
+        return null;
+    }
+
+    $upload_dir = 'uploads/';
+    $filename = uniqid() . '.' . $extension;
+    $filepath = $upload_dir . $filename;
+    if (!move_uploaded_file($uploaded_file['tmp_name'], $filepath)) {
+        return null;
+    }
+
+    return $filepath;
+}
