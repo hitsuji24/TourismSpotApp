@@ -56,11 +56,13 @@ if (isset($_GET['id'])) {
             <button type="submit">お気に入り登録</button>
         </form>
 
-        <!-- AR表示ボタン -->
-        <div class="arView">
-            <a href="ar_view.php?id=<?= $spot['id'] ?>">AR表示</a>
-        </div>
-
+        <!-- 視点の座標が登録されているかどうかに応じて、AR表示のボタンとバミるモードのボタンを切り替える -->
+        <?php if ($spot['view_latitude'] && $spot['view_longitude']) : ?>
+        <a href="ar_view.php?id=<?= $spot['id'] ?>">AR表示</a>
+    <?php else : ?>
+        <a href="vami.php?id=<?= $spot['id'] ?>">バミるモード</a>
+    <?php endif; ?>
+      
         <!-- 行ったよボタン -->
         <form action="visit.php" method="post">
             <input type="hidden" name="spot_id" value="<?= $spot['id'] ?>">

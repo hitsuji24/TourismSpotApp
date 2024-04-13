@@ -190,16 +190,17 @@ display: none;
 
 /* 追加ボタンのスタイル */
 .add-spot-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 50px;
-    font-size: 24px;
-    text-decoration: none;
+  position: fixed;
+  bottom: 80px; /* ボトムナビの高さに応じて調整 */
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 24px;
+  text-decoration: none;
+  z-index: 1000; /* ボトムナビより上に表示するためのz-index */
 }

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <title>Vamilu</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <?php require 'config/config_googlemap.php'; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY; ?>&callback=initMap" async defer></script>
 </head>
 
@@ -46,29 +46,33 @@
     </div>
 
     <!-- スポット追加ボタン -->
-    <a href="spot_add.php" class="add-spot-button">+</a>
+    <button class="add-spot-button" onclick="location.href='spot_add.php'">
+        <i class="fas fa-plus"></i>
+        <span>スポットを追加</span>
+    </button>
 
     <!-- ボトムナビ -->
     <nav class="bottom-nav">
-            <a href="index.php" class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>ホーム</span>
-            </a>
-            <a href="works.php" class="nav-item">
-                <i class="fas fa-film"></i>
-                <span>作品</span>
-            </a>
-            <a href="spot.php" class="nav-item active">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>スポット</span>
-            </a>
-            <a href="mylist.php" class="nav-item">
-                <i class="fas fa-heart"></i>
-                <span>マイリスト</span>
-            </a>
-        </nav>
+        <a href="index.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'index.php') echo 'active'; ?>">
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+        </a>
+        <a href="works.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'works.php') echo 'active'; ?>">
+            <i class="fas fa-film"></i>
+            <span>作品</span>
+        </a>
+        <a href="spot.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'spot.php') echo 'active'; ?>">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>スポット</span>
+        </a>
+        <a href="mylist.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'mylist.php') echo 'active'; ?>">
+            <i class="fas fa-heart"></i>
+            <span>マイリスト</span>
+        </a>
+    </nav>
 
     <script src="js/spots.js"></script>
+
 </body>
 
 </html>

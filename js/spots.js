@@ -4,16 +4,28 @@ var map;
 var markers = [];
 
 function initMap() {
-    // マップの初期化
-    map = new google.maps.Map($('#map')[0], {
-        center: { lat: 35.6809591, lng: 139.7673068 },
-        zoom: 12,
-        // mapId: '970630afa042e01d'
+    // Google Maps APIが読み込まれたら、マップ関連の処理を実行
+    $(document).ready(function() {
+        // 現在の位置情報を取得
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // 現在地の緯度経度を取得
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            
+            // 現在地を中心にマップを表示
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: lat, lng: lng },
+                zoom: 12
+            });
+            
+            // スポット一覧を取得して表示
+            getSpots();
+        });
     });
-
-    // 初期表示時に検索を実行
-    $('#search-form').submit();
 }
+
+// グローバルスコープでinitMap関数を定義
+window.initMap = initMap;
 
 $(function () {
     // 検索フォームの送信イベント
