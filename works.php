@@ -45,6 +45,12 @@
     
     <script src="js/works.js"></script>
 
+   <!-- スポット追加ボタン -->
+   <button class="add-spot-button" onclick="location.href='work_add.php'">
+        <i class="fas fa-plus"></i>
+        <span>スポットを追加</span>
+    </button>
+
     <!-- ボトムナビ -->
     <nav class="bottom-nav">
             <a href="index.php" class="nav-item">
