@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
         <div id="spot-info">
             <p><?= h($spot['description']) ?></p>
             <p>カテゴリー: <?= h($spot['category']) ?></p>
-            <p>住所: <?= h($spot['address']) ?></p>
+            <p>住所: <?= h($spot['main_address']) ?></p>
         </div>
 
         <!-- お気に入り登録ボタン -->

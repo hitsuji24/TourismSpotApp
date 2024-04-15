@@ -56,7 +56,7 @@ foreach ($spots as $spot) {
     $response['list'] .= '<h2><a href="spot_detail.php?id=' . $spot['id'] . '">' . $spot['name'] . '</a></h2>';
     $response['list'] .= '<p>' . $spot['description'] . '</p>';
     $response['list'] .= '<p>カテゴリー: ' . $spot['category'] . '</p>';
-    $response['list'] .= '<p>住所: ' . $spot['address'] . '</p>';
+    $response['list'] .= '<p>住所: ' . $spot['main_address'] . '</p>';
     $response['list'] .= '</div>';
     
     $response['spots'][] = [
