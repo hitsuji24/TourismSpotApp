@@ -36,8 +36,8 @@ if (isset($_GET['id'])) {
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 
-<!-- GPS強度の表示 -->
-<div id="gps-strength" class="gps-strength-icon">GPS強度</div>
+<!-- GPS強度の表示
+<div id="gps-strength" class="gps-strength-icon">GPS強度</div> -->
 
 
 
@@ -52,15 +52,15 @@ if (isset($_GET['id'])) {
 
     <script>
         const arImage = document.querySelector('#ar-image');
-        const description = document.querySelector('#description');
+        // const description = document.querySelector('#description');
 
-        arImage.addEventListener('click', () => {
-            if (description.style.display === 'none') { // 'none'がtrue（非表示）の場合            
-                description.style.display = 'block'; // 'block'に変更（表示）
-            } else { // 'none'がfalse（表示）の場合
-                description.style.display = 'none'; // 'none'に変更（非表示）
-            }
-        });
+        // arImage.addEventListener('click', () => {
+        //     if (description.style.display === 'none') { // 'none'がtrue（非表示）の場合            
+        //         description.style.display = 'block'; // 'block'に変更（表示）
+        //     } else { // 'none'がfalse（表示）の場合
+        //         description.style.display = 'none'; // 'none'に変更（非表示）
+        //     }
+        // });
 
 
         const spotPoint = {

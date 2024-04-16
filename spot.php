@@ -46,7 +46,7 @@
     </div>
 
     <!-- スポット追加ボタン -->
-    <button class="add-spot-button" onclick="location.href='spot_add_simple.php'">
+    <button class="add-spot-button" onclick="location.href='spot_add.php'">
         <i class="fas fa-plus"></i>
         <span>スポットを追加</span>
     </button>

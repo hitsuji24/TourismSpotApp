@@ -36,47 +36,50 @@
         let currentLocationMarker;
 
         function initMap() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: pos,
-                zoom: 18
-            });
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: pos,
+                        zoom: 18
+                    });
 
-            // メインのマーカーを設定
-            marker = new google.maps.Marker({
-                position: pos,
-                map: map,
-                draggable: true
-            });
-            document.getElementById('latitude').value = pos.lat;
-            document.getElementById('longitude').value = pos.lng;
-            marker.addListener('dragend', function() {
-                const pos = marker.getPosition();
-                document.getElementById('latitude').value = pos.lat();
-                document.getElementById('longitude').value = pos.lng();
-            });
+                    // メインのマーカーを設定 (ドラッグ可能) 赤い方
+                    marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        draggable: true
+                    });
+                    document.getElementById('latitude').value = pos.lat;
+                    document.getElementById('longitude').value = pos.lng;
+                    marker.addListener('dragend', function() {
+                        const pos = marker.getPosition();
+                        document.getElementById('latitude').value = pos.lat();
+                        document.getElementById('longitude').value = pos.lng();
+                    });
 
-            // 現在地マーカーを設定
-            currentLocationMarker = new google.maps.Marker({
-                position: pos,
-                map: map,
-                title: "現在地",
-                icon: {
-                    url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                }
-            });
-        }, function() {
-            alert('位置情報の取得に失敗しました。');
-        });
-    } else {
-        alert('お使いのブラウザは位置情報に対応していません。');
-    }
-}
+                    // 現在地マーカーを設定 (ドラッグ不可) 青い方
+                    currentLocationMarker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: "現在地",
+                        // アイコンを変更 好きな画像でもOK
+                        icon: {
+                            url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                            scaledSize: new google.maps.Size(24, 24)
+
+                        }
+                    });
+                }, function() {
+                    alert('位置情報の取得に失敗しました。');
+                });
+            } else {
+                alert('お使いのブラウザは位置情報に対応していません。');
+            }
+        }
 
 
         function searchAddress() {

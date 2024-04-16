@@ -18,7 +18,7 @@ $stmt->bindValue(':spot_id', $spot_id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
 if ($status) {
-    header("Location: detail.php?id=" . $spot_id);
+    header("Location: spot_detail.php?id=" . $spot_id);
 } else {
     sql_error($stmt);
 }

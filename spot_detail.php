@@ -58,11 +58,11 @@ if (isset($_GET['id'])) {
 
         <!-- 視点の座標が登録されているかどうかに応じて、AR表示のボタンとバミるモードのボタンを切り替える -->
         <?php if ($spot['view_latitude'] && $spot['view_longitude']) : ?>
-        <a href="ar_view.php?id=<?= $spot['id'] ?>">AR表示</a>
-    <?php else : ?>
-        <a href="vami.php?id=<?= $spot['id'] ?>">バミるモード</a>
-    <?php endif; ?>
-      
+            <a href="ar_view.php?id=<?= $spot['id'] ?>">AR表示</a>
+        <?php else : ?>
+            <a href="vami.php?id=<?= $spot['id'] ?>">バミるモード</a>
+        <?php endif; ?>
+
         <!-- 行ったよボタン -->
         <form action="visit.php" method="post">
             <input type="hidden" name="spot_id" value="<?= $spot['id'] ?>">
@@ -103,31 +103,31 @@ if (isset($_GET['id'])) {
     </div>
 
     <nav class="bottom-nav">
-            <a href="index.php" class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>ホーム</span>
-            </a>
-            <a href="works.php" class="nav-item">
-                <i class="fas fa-film"></i>
-                <span>作品</span>
-            </a>
-            <a href="spot.php" class="nav-item active">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>スポット</span>
-            </a>
-            <a href="mylist.php" class="nav-item">
-                <i class="fas fa-heart"></i>
-                <span>マイリスト</span>
-            </a>
-        
-        </nav>
+        <a href="index.php" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+        </a>
+        <a href="works.php" class="nav-item">
+            <i class="fas fa-film"></i>
+            <span>作品</span>
+        </a>
+        <a href="spot.php" class="nav-item active">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>スポット</span>
+        </a>
+        <a href="mylist.php" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>マイリスト</span>
+        </a>
+
+    </nav>
 
     <script>
         function initMap() {
             var map = new google.maps.Map($('#spot-map #map')[0], {
                 center: {
-                    lat: <?= $spot['main_latitude'] ?>,
-                    lng: <?= $spot['main_longitude'] ?>
+                    lat: parseFloat('<?= $spot['main_latitude'] ?>'),
+                    lng: parseFloat('<?= $spot['main_longitude'] ?>')
                 },
                 zoom: 14
             });
@@ -135,8 +135,8 @@ if (isset($_GET['id'])) {
             var marker = new google.maps.Marker({
                 map: map,
                 position: {
-                    lat: <?= $spot['main_latitude'] ?>,
-                    lng: <?= $spot['main_longitude'] ?>
+                    lat: parseFloat('<?= $spot['main_latitude'] ?>'),
+                    lng: parseFloat('<?= $spot['main_longitude'] ?>')
                 },
                 title: '<?= h($spot['name']) ?>'
             });

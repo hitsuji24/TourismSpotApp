@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $view_latitude = $_POST['view_latitude'];
     $view_longitude = $_POST['view_longitude'];
     $work_id = $_POST['work_id'];
-    $creator = $_SESSION['user_id']; // 画像のアップロード処理 
+    $creator = $_SESSION['user_id']; 
+    // 画像のアップロード処理 
     $image = '';
     if (!empty($_FILES['image']['name'])) {
         $filename = date('YmdHis') . '_' . $_FILES['image']['name'];
@@ -27,6 +28,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($_FILES['image']['tmp_name'], $uploaded_path);
         $image = $uploaded_path;
     }
+
+    // Geocodingリクエストを送信（逆ジオコーディング）
+    require 'config/config_googlemap.php';
+    $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$main_latitude},{$main_longitude}&language=ja&key=" . GOOGLE_MAP_API_KEY;
+
+    $options = array(
+        'http' => array(
+            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36\r\n"
+        )
+    );
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+    $data = json_decode($response, true);
+
+    // 住所を取得
+    if ($data['status'] === 'OK') {
+        $main_address = $data['results'][0]['formatted_address'];
+    } else {
+        $main_address = '';
+    }
+
 
     // バリデーション 
     $errors = [];
@@ -39,9 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($work_id)) {
         $errors['work'] = '作品を選択してください。';
     }
-    if (empty($image)) {
-        $errors['image'] = '画像を選択してください。';
-    }
+
     if (count($errors) === 0) {
 
         // spotsテーブルにデータを登録 
@@ -75,4 +95,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-?>

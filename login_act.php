@@ -34,6 +34,8 @@ if($val != null && password_verify($password, $val["password"])){
 }else{
   //Login失敗時(Logoutを経由：リダイレクト)
   redirect("login.php");
+  //エラーメッセージ
+ echo "ログインできません！";
 }
 
 exit();

@@ -21,6 +21,8 @@
 <input type="submit" value="LOGIN" />
 </form>
 
+<!-- 新規登録のボタンを出す -->
+<a href="signup.php.php">新規登録</a>
 
 </body>
 </html>
