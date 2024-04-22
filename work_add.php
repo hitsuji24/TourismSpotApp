@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>作品追加</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>作品追加</h1>
+    <h4>作品追加</h4>
     <form action="work_add_act.php" method="post" enctype="multipart/form-data">
         <div>
             <label for="title">作品名：</label>
@@ -41,5 +43,25 @@
         </div>
         <button type="submit">登録</button>
     </form>
+
+    <nav class="bottom-nav">
+        <a href="index.php" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+        </a>
+        <a href="works.php" class="nav-item">
+            <i class="fas fa-film"></i>
+            <span>作品</span>
+        </a>
+        <a href="spot.php" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>スポット</span>
+        </a>
+        <a href="mylist.php" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>マイリスト</span>
+        </a>
+
+    </nav>
 </body>
 </html>
