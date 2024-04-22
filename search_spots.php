@@ -1,4 +1,8 @@
 <?php
+// エラー表示 
+ ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
  //DB接続
  include("funcs.php");
  $pdo = db_conn();
@@ -14,7 +18,7 @@ $sql = "SELECT * FROM spots";
 $conditions = [];
 
 if (!empty($keyword)) {
-    $conditions[] = "(name LIKE '%$keyword%' OR description LIKE '%$keyword%' OR address LIKE '%$keyword%')";
+    $conditions[] = "(name LIKE '%$keyword%' OR description LIKE '%$keyword%' OR main_address LIKE '%$keyword%')";
 }
 
 if (!empty($category)) {
@@ -66,8 +70,11 @@ foreach ($spots as $spot) {
     ];
 }
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 //日本語文字列をエスケープせずにエンコード JSON_UNESCAPED_UNICODE 
 //日本語の文字列がそのままJSONエンコードされると有効なJSON形式ではなくなるため
 echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+
+
 ?>

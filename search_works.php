@@ -4,6 +4,7 @@ include("funcs.php");
 $pdo = db_conn();
 
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 
 $sql = "SELECT * FROM works";
@@ -11,15 +12,29 @@ $conditions = [];
 
 if (!empty($keyword)) {
     $conditions[] = "(title LIKE '%$keyword%' OR description LIKE '%$keyword%')";
-}
-
-if (!empty($category)) {
+  }
+  
+  if (!empty($category)) {
     $conditions[] = "category = '$category'";
-}
-
-if (!empty($conditions)) {
+  }
+  
+  if (!empty($conditions)) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
-}
+  }
+  
+  switch ($sort) {
+  case 'release_date_desc':
+    $sql .= " ORDER BY release_date DESC";
+    break;
+  case 'release_date_asc':
+    $sql .= " ORDER BY release_date ASC"; 
+    break;
+  case 'title_asc':
+    $sql .= " ORDER BY title ASC";
+    break;
+  default:
+    break;
+  }
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -42,4 +57,3 @@ foreach ($works as $work) {
 }
 
 echo json_encode($response, JSON_UNESCAPED_UNICODE);
-?>

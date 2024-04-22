@@ -16,21 +16,22 @@
 
     <!-- 検索フォーム -->
     <form id="search-form">
-        <input type="text" name="keyword" id="keyword" placeholder="キーワードを入力">
-        <select name="sort" id="sort">
-            <option value="created_at">登録日順</option>
-            <option value="distance">距離順</option>
-        </select>
-        <select name="category" id="category">
-            <option value="">すべて</option>
-            <option value="アニメ">アニメ</option>
-            <option value="漫画">漫画</option>
-            <option value="映画">映画</option>
-            <option value="アート">アート</option>
-            <option value="歴史">歴史</option>
-            <option value="その他">その他</option>
-        </select>
-        <button type="submit">検索</button>
+    <input type="text" name="keyword" id="keyword" placeholder="キーワードを入力">
+    <button type="submit">検索</button>
+
+    <select name="sort" id="sort">
+        <option value="created_at">登録日順</option>
+        <option value="distance">距離順</option>
+    </select>
+    <select name="category" id="category">
+        <option value="">すべて</option>
+        <option value="1">アニメ</option>
+        <option value="2">漫画</option>
+        <option value="3">映画</option>
+        <option value="4">アート</option>
+        <option value="5">歴史</option>
+        <option value="6">その他</option>
+    </select>
     </form>
 
     <!-- 表示切り替えボタン -->

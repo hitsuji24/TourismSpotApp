@@ -25,9 +25,10 @@
             </select> </div>
 
         <div class="mainLocation">
-            <div id="main_map"></div>
+           
             <div>
-                <label for="main_address">所在地の座標</label><span class="required">*</span>
+                <label for="main_address">スポットの所在地にピンを立てる</label><span class="required">*</span>
+                <div id="main_map"></div>
                 <div>
                     <label for="main_latitude">緯度:</label>
                     <input type="text" id="main_latitude" name="main_latitude" readonly>
@@ -45,9 +46,10 @@
 
         <div class="viewLocation">
             <!-- 視点位置不明の場合のチェックボックス必要 NULLで登録させる -->
-            <div id="view_map"></div>
             <div>
-                <label for="view_address">視点位置の座標</label><span class="required">*</span>
+                <label for="view_address">シーン再現の立ち位置にピンを立てる</label><span class="required">*</span>
+                <div id="view_map"></div>
+
                 <div>
                     <label for="view_latitude">緯度:</label>
                     <input type="text" id="view_latitude" name="view_latitude" readonly>
@@ -107,7 +109,7 @@
                     // メインの地図を初期化
                     mainMap = new google.maps.Map(document.getElementById('main_map'), {
                         center: pos,
-                        zoom: 15
+                        zoom: 18
                     });
                     mainMarker = new google.maps.Marker({
                         position: pos,
@@ -125,7 +127,7 @@
                     // 視点用の地図を初期化
                     viewMap = new google.maps.Map(document.getElementById('view_map'), {
                         center: pos,
-                        zoom: 15
+                        zoom: 18
                     });
                     viewMarker = new google.maps.Marker({
                         position: pos,

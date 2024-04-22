@@ -136,7 +136,7 @@ if (isset($_GET['id'])) {
                 lon: event.detail.position.longitude
             });
 
-            if (distance > 10) {
+            if (distance > 15) {
                 // 立ち位置から10m以上離れている場合は非表示
                 arImage.setAttribute('visible', 'false');
             } else {

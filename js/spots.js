@@ -5,19 +5,19 @@ var markers = [];
 
 function initMap() {
     // Google Maps APIが読み込まれたら、マップ関連の処理を実行
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 現在の位置情報を取得
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             // 現在地の緯度経度を取得
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
-            
+
             // 現在地を中心にマップを表示
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: lat, lng: lng },
                 zoom: 12
             });
-            
+
             // スポット一覧を取得して表示
             getSpots();
         });
@@ -28,6 +28,7 @@ function initMap() {
 window.initMap = initMap;
 
 $(function () {
+
     // 検索フォームの送信イベント
     $('#search-form').submit(function (event) {
         event.preventDefault();
@@ -58,6 +59,34 @@ $(function () {
             });
     });
 
+      // 並び順とカテゴリの変更イベント
+      $('#sort, #category').change(function () {
+        var keyword = $('#keyword').val();
+        var sort = $('#sort').val();
+        var category = $('#category').val();
+
+        $.ajax({
+            url: 'search_spots.php',
+            type: 'GET',
+            data: {
+                keyword: keyword,
+                sort: sort,
+                category: category,
+                latitude: latitude,
+                longitude: longitude
+            },
+            dataType: 'json'
+        })
+            .done(function (data) {
+                $('#spot-list').html(data.list);
+                updateMap(data.spots);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error('検索に失敗しました:', textStatus, errorThrown);
+                alert('検索に失敗しました');
+            });
+    });
+   
     // 初期表示時に検索を実行
     $('#search-form').submit();
 
@@ -79,7 +108,7 @@ $(function () {
         console.log("spot-listのクラス（変更後）:", $('#spot-list').attr('class'));
         console.log("mapのクラス（変更後）:", $('#map').attr('class'));
     });
-    
+
     $('#map-view-btn').click(function () {
         console.log("マップ表示ボタンがクリックされました");
         console.log("spot-listのクラス:", $('#spot-list').attr('class'));
