@@ -63,7 +63,7 @@ if (count($works) > 0) {
 
         $response['list'] .= '<div class="work-info">';
         $response['list'] .= '<h2>' . $work['title'] . '</h2>';
-        $response['list'] .= '<p id="releaseDate">公開日: ' . $work['release_date'] . '</p>';
+        $response['list'] .= '<p id="releaseDate">' . $work['release_date'] . '</p>';
         $response['list'] .= '<p id="category">カテゴリー: ' . $work['category_name'] . '</p>';
         $response['list'] .= '<p id="spotNum">登録スポット数: ' . $work['spot_count'] . '</p>';
         $response['list'] .= '</div>';

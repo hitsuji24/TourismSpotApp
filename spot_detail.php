@@ -31,6 +31,8 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title><?= h($spot['name']) ?> - アニメ聖地スポット</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <?php require 'config/config_googlemap.php'; ?>
@@ -50,18 +52,17 @@ if (isset($_GET['id'])) {
             <p>住所: <?= h($spot['main_address']) ?></p>
         </div>
 
+
+        <!-- ARボタン -->
+        <!-- 視点の座標が登録されているかどうかに応じて、AR表示のボタンとバミるモードのボタンを切り替える 一旦削除 ARのみ -->
+        <button class="action-button" onclick="location.href=" ar_view.php?id=<?= $spot['id'] ?>"">AR表示</button>
         <!-- お気に入り登録ボタン -->
         <form action="favorite.php" method="post">
             <input type="hidden" name="spot_id" value="<?= $spot['id'] ?>">
             <button type="submit">お気に入り登録</button>
         </form>
 
-        <!-- 視点の座標が登録されているかどうかに応じて、AR表示のボタンとバミるモードのボタンを切り替える -->
-        <?php if ($spot['view_latitude'] && $spot['view_longitude']) : ?>
-            <a href="ar_view.php?id=<?= $spot['id'] ?>">AR表示</a>
-        <?php else : ?>
-            <a href="vami.php?id=<?= $spot['id'] ?>">バミるモード</a>
-        <?php endif; ?>
+
 
         <!-- 行ったよボタン -->
         <form action="visit.php" method="post">

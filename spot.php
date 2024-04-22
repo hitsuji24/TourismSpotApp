@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Vamilu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <?php require 'config/config_googlemap.php'; ?>
@@ -12,26 +13,36 @@
 </head>
 
 <body>
-    <h1>アニメ聖地スポット一覧</h1>
+    <h4>スポット一覧</h4>
 
     <!-- 検索フォーム -->
     <form id="search-form">
-    <input type="text" name="keyword" id="keyword" placeholder="キーワードを入力">
-    <button type="submit">検索</button>
 
-    <select name="sort" id="sort">
-        <option value="created_at">登録日順</option>
-        <option value="distance">距離順</option>
-    </select>
-    <select name="category" id="category">
-        <option value="">すべて</option>
-        <option value="1">アニメ</option>
-        <option value="2">漫画</option>
-        <option value="3">映画</option>
-        <option value="4">アート</option>
-        <option value="5">歴史</option>
-        <option value="6">その他</option>
-    </select>
+        <div class="search_container">
+            <input type="text" name="keyword" id="keyword" size="25" placeholder="キーワード検索">
+            <input type="submit" value="&#xf002;">
+        </div>
+
+        <div class="sort-select">
+            <label class="selectbox">
+                <select name="sort" id="sort">
+                    <option value="created_at">登録日順</option>
+                    <option value="distance">距離順</option>
+                </select>
+            </label>
+
+            <label class="selectbox">
+                <select name="category" id="category">
+                    <option value="">すべて</option>
+                    <option value="1">アニメ</option>
+                    <option value="2">漫画</option>
+                    <option value="3">映画</option>
+                    <option value="4">アート</option>
+                    <option value="5">歴史</option>
+                    <option value="6">その他</option>
+                </select>
+            </label>
+        </div>
     </form>
 
     <!-- 表示切り替えボタン -->
@@ -49,24 +60,23 @@
     <!-- スポット追加ボタン -->
     <button class="add-spot-button" onclick="location.href='spot_add.php'">
         <i class="fas fa-plus"></i>
-        <span>スポットを追加</span>
     </button>
 
     <!-- ボトムナビ -->
     <nav class="bottom-nav">
-        <a href="index.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'index.php') echo 'active'; ?>">
+        <a href="index.php" class="nav-item">
             <i class="fas fa-home"></i>
             <span>ホーム</span>
         </a>
-        <a href="works.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'works.php') echo 'active'; ?>">
+        <a href="works.php" class="nav-item">
             <i class="fas fa-film"></i>
             <span>コンテンツ</span>
         </a>
-        <a href="spot.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'spot.php') echo 'active'; ?>">
+        <a href="spot.php" class="nav-item active">
             <i class="fas fa-map-marker-alt"></i>
             <span>スポット</span>
         </a>
-        <a href="mylist.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'mylist.php') echo 'active'; ?>">
+        <a href="mylist.php" class="nav-item">
             <i class="fas fa-heart"></i>
             <span>マイリスト</span>
         </a>

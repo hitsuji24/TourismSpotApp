@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<h4>コンテンツ一覧</h4>
+    <h4>コンテンツ一覧</h4>
 
     <!-- 検索フォーム -->
     <form id="search-form">
@@ -27,32 +27,32 @@
         </div>
 
         <div class="sort-select">
-        <label class="selectbox">
-        <select  name="sort" id="sort">
-            <option value="release_date_desc">年代が新しい順</option>
-            <option value="release_date_asc">年代が古い順</option>
-            <option value="title_asc">タイトル順</option>
-        </select>
-        </label>
+            <label class="selectbox">
+                <select name="sort" id="sort">
+                    <option value="release_date_desc">年代が新しい順</option>
+                    <option value="release_date_asc">年代が古い順</option>
+                    <option value="title_asc">タイトル順</option>
+                </select>
+            </label>
 
-        <label class="selectbox">
-        <select class="selectbox" name="category" id="category">
-            <option value="">すべて</option>
-            <option value="1">アニメ</option>
-            <option value="2">漫画</option>
-            <option value="3">映画</option>
-            <option value="4">アート</option>
-            <option value="5">歴史</option>
-            <option value="6">その他</option>
-        </select>
-        </label>
+            <label class="selectbox">
+                <select class="selectbox" name="category" id="category">
+                    <option value="">すべて</option>
+                    <option value="1">アニメ</option>
+                    <option value="2">漫画</option>
+                    <option value="3">映画</option>
+                    <option value="4">アート</option>
+                    <option value="5">歴史</option>
+                    <option value="6">その他</option>
+                </select>
+            </label>
         </div>
     </form>
 
 
     <!-- コンテンツ -->
     <div id="works-list"> </div>
-   
+
 
     <!-- スポット追加ボタン -->
     <button type="button" class="add-spot-button" onclick="location.href='work_add.php'">
