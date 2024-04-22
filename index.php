@@ -28,7 +28,7 @@ if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
 
 <body>
     <header>
-        <h1>Vamilu</h1>
+        <h2>Vamilu</h2>
 
         <div id="user-info">
             <?php if ($isLoggedIn) : ?>
@@ -52,8 +52,8 @@ if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
                 <p><a href="logout.php">ログアウト</a></p>
             
             <?php else : ?>
-                <a href="login.php">ログイン</a>
-                <a href="signup.php">新規登録</a>
+                <a id="button-login" href="login.php">ログイン</a>
+                <a id="button-signup" href="signup.php">新規登録</a>
             <?php endif; ?>
         </div>
     </header>
@@ -65,35 +65,13 @@ if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
 
         <!-- 特集を横カルーセルで表示 -->
         <div class="features">
-            特集
+            <H3>特集</H3>
             <ul class="slider">
-                <li><img src="img/feature-shibuya.jpg" alt=""></li>
-                <li><img src="img/feature-springart.jpg" alt=""></li>
-                <li><img src="img/feature-gourmet.jpg" alt=""></li>
+                <li><img src="img/feature-tate/1.jpg" alt=""></li>
+                <li><img src="img/feature-tate/2.jpg" alt=""></li>
+                <li><img src="img/feature-tate/3.jpg" alt=""></li>
+                <li><img src="img/feature-tate/4.jpg" alt=""></li>
             </ul>
-
-        </div>
-
-        <!-- おすすめスポットを横カルーセルで表示 -->
-        <div class="spot-recommend">
-            あなたにおすすめ
-            <ul class="slider">
-                <li><img src="img/feature-shibuya.jpg" alt=""></li>
-                <li><img src="img/feature-springart.jpg" alt=""></li>
-                <li><img src="img/feature-gourmet.jpg" alt=""></li>
-            </ul>
-
-        </div>
-
-        <!-- 人気のスポットをカルーセルで表示 -->
-        人気のスポット
-        <div class="spot-recommend">
-            <ul class="slider">
-                <li><img src="img/feature-shibuya.jpg" alt=""></li>
-                <li><img src="img/feature-springart.jpg" alt=""></li>
-                <li><img src="img/feature-gourmet.jpg" alt=""></li>
-            </ul>
-
         </div>
 
         <nav class="bottom-nav">
@@ -119,8 +97,6 @@ if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/6-1-6.js"></script>
-
     </body>
 
 </body>

@@ -52,8 +52,12 @@ $spots = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // 検索結果をJSON形式で返す
 $response = [
     'list' => '',
-    'spots' => []
+    'spots' => [],
+    'empty_message' => '該当する作品がありません。', // 空の場合のメッセージを追加
+
 ];
+
+if (count($spots) > 0) {
 
 foreach ($spots as $spot) {
     $response['list'] .= '<div class="spot">';
@@ -69,7 +73,9 @@ foreach ($spots as $spot) {
         'main_longitude' => $spot['main_longitude']
     ];
 }
-
+} else {
+    $response['list'] = '<div id="empty-message">該当するスポットがありません。</div>'; // 空の場合のメッセージを表示
+}
 header('Content-Type: application/json; charset=utf-8');
 //日本語文字列をエスケープせずにエンコード JSON_UNESCAPED_UNICODE 
 //日本語の文字列がそのままJSONエンコードされると有効なJSON形式ではなくなるため

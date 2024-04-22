@@ -60,7 +60,7 @@
         </a>
         <a href="works.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'works.php') echo 'active'; ?>">
             <i class="fas fa-film"></i>
-            <span>作品</span>
+            <span>コンテンツ</span>
         </a>
         <a href="spot.php" class="nav-item <?php if (basename($_SERVER['PHP_SELF']) === 'spot.php') echo 'active'; ?>">
             <i class="fas fa-map-marker-alt"></i>

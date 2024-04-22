@@ -1,12 +1,10 @@
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: #f8f8f8;
-  color: #333;
-  width: 400px;
+  margin: 0;
 }
 
 /*==================================================
-ボトムナビのためのcss
+ボトムナビ
 ===================================*/
 .bottom-nav {
   position: fixed;
@@ -43,25 +41,75 @@ body {
   font-size: 12px;
 }
 
+
 /*==================================================
-ユーザープロフィールのためのcss
+ホ‐ム画面
 ===================================*/
-/* アバターと情報を左右で表示 */
-.user {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
+/* ヘッダーのCSS */
+header h2 {
+  text-align: left;
+  font-size: 67px;
+  color: #007aff;
+  margin: 24px;
+  padding: 0;
+}
+
+#user-info {
+  height: 80px;
+}
+
+#button-login {
+  color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: 1px solid #007aff;
+  margin: 0 24px;
+}
+
+#button-login:hover {
+  background-color: #0056b3;
+}
+
+#button-signup {
+  background-color: #007aff;
+  color: white;
+  text-decoration: none;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 100px;
+  margin: 0 px;
+}
+
+#button-signup:hover {
+  background-color: #0056b3;
+}
+
+#user-info {
+  align-items: left;
+  padding: 0 24px;
+}
+
+#user-info p {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.features h3 {
+  text-align: left;
+  font-size: 30px;
+  color: black;
+  margin: 0px 24px 8px;
+  padding: 0;
 }
 
 
-/*==================================================
-スライダーのためのcss
-===================================*/
+/* スライダー */
 .slider {
   /*横幅94%で左右に余白を持たせて中央寄せ*/
   width: 94%;
-  margin: 0 auto;
+  margin: 24 auto;
 }
 
 .slider img {
@@ -73,7 +121,7 @@ body {
 /*slickのJSで書かれるタグ内、スライド左右の余白調整*/
 
 .slider .slick-slide {
-  margin: 0 10px;
+  margin: 0 24px;
 }
 
 /*矢印の設定*/
@@ -137,6 +185,51 @@ body {
   background: #333;
   /*ドットボタンの現在地表示の色*/
 }
+
+/*==================================================
+ログインと新規登録画面のためのcss
+===================================*/
+h4 {
+  text-align: left;
+  font-size: 24px;
+  margin: 24px;
+  padding: 0;
+}
+
+#login-form,
+#signup-form {
+  margin: 16px 24px;
+  overflow: hidden;
+  position: relative;
+  gap: 16px;
+
+  label {
+    display: inline-block;
+    color: gray;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    border: 0.1em solid darken(#eee, 6%);
+    padding: 8px;
+    margin-bottom: 16px;
+    max-width: 88.5%;
+  }
+
+  .action-button {
+    background-color: #007aff;
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 100px;
+  }
+}
+
+
 
 /*==================================================
 スポット一覧のためのcss
@@ -237,5 +330,110 @@ img {
   height: auto;
 }
 
+/*================================================== 
+スポット一覧と作品一覧の検索エリアのためのcss
+===================================*/
+.search_container {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #999;
+  padding: 3px 10px;
+  border-radius: 20px;
+  height: 2.3em;
+  width:calc(100%- 48px);
+  overflow: hidden;
+  margin: 16px 24px 16px;
+}
 
+.search_container input[type="text"] {
+  border: none;
+  height: 2.0em;
+}
 
+.search_container input[type="submit"] {
+  cursor: pointer;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 800;
+  border: none;
+  background: #3879D9;
+  color: #fff;
+  position: absolute;
+  width: 3.5em;
+  height: 3.0em;
+  right: 0px;
+  top: -3px;
+  outline: none;
+}
+
+.sort-select {
+  margin: 8px 24px 16px;
+  width:calc(100%- 48px);
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  gap: 16px;
+}
+
+.selectbox {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.selectbox::after {
+  position: absolute;
+  right: 15px;
+  width: 10px;
+  height: 7px;
+  background-color: #535353;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: '';
+  pointer-events: none;
+}
+
+.selectbox select {
+  appearance: none;
+  height: 2.8em;
+  padding: 4px 34px 4px 10px;
+  border: 1px solid #c6c3c3;
+  border-radius: 3px;
+  color: #333333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/*================================================== 
+スポット一覧と作品一覧の結果一覧のためのcss
+===================================*/
+.result_container {
+  display: flex;
+  flex-direction: ;
+  gap: 16px;
+  margin: 8px 24px;
+  width:calc(100%- 48px);
+  height: 120px;
+}
+
+.work-img{
+  width: 70px;
+  height: 88px;
+  overflow: hidden;
+}
+.work-img img{
+  width: auto;
+  max-width: 70px;
+  height: 88px;
+}
+
+.work-info h2 {
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+.work-info p {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}

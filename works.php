@@ -16,18 +16,27 @@
 </head>
 
 <body>
-
-    <h1>作品一覧</h1>
+<h4>コンテンツ一覧</h4>
 
     <!-- 検索フォーム -->
     <form id="search-form">
-        <input type="text" name="keyword" id="keyword" placeholder="キーワードを入力">
-        <select name="sort" id="sort">
-        <option value="release_date_desc">公開日が新しい順</option>
-    <option value="release_date_asc">公開日が古い順</option>
-    <option value="title_asc">タイトル名前順</option>
+
+        <div class="search_container">
+            <input type="text" name="keyword" id="keyword" size="25" placeholder="キーワード検索">
+            <input type="submit" value="&#xf002;">
+        </div>
+
+        <div class="sort-select">
+        <label class="selectbox">
+        <select  name="sort" id="sort">
+            <option value="release_date_desc">年代が新しい順</option>
+            <option value="release_date_asc">年代が古い順</option>
+            <option value="title_asc">タイトル順</option>
         </select>
-        <select name="category" id="category">
+        </label>
+
+        <label class="selectbox">
+        <select class="selectbox" name="category" id="category">
             <option value="">すべて</option>
             <option value="1">アニメ</option>
             <option value="2">漫画</option>
@@ -36,19 +45,18 @@
             <option value="5">歴史</option>
             <option value="6">その他</option>
         </select>
-        <button type="submit">検索</button>
+        </label>
+        </div>
     </form>
 
 
     <!-- コンテンツ -->
-    <div id="works-list"></div>
-
-    <script src="js/works.js"></script>
+    <div id="works-list"> </div>
+   
 
     <!-- スポット追加ボタン -->
-    <button class="add-spot-button" onclick="location.href='work_add.php'">
+    <button type="button" class="add-spot-button" onclick="location.href='work_add.php'">
         <i class="fas fa-plus"></i>
-        <span>スポットを追加</span>
     </button>
 
     <!-- ボトムナビ -->
@@ -59,7 +67,7 @@
         </a>
         <a href="works.php" class="nav-item active">
             <i class="fas fa-film"></i>
-            <span>作品</span>
+            <span>コンテンツ</span>
         </a>
         <a href="spot.php" class="nav-item">
             <i class="fas fa-map-marker-alt"></i>
@@ -75,6 +83,7 @@
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/6-1-6.js"></script>
+    <script src="js/works.js"></script>
 
 </body>
 
