@@ -81,7 +81,7 @@ if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id()) {
             </a>
             <a href="works.php" class="nav-item">
                 <i class="fas fa-film"></i>
-                <span>作品</span>
+                <span>コンテンツ</span>
             </a>
             <a href="spot.php" class="nav-item">
                 <i class="fas fa-map-marker-alt"></i>
