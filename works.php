@@ -16,7 +16,9 @@
 </head>
 
 <body>
-    <h4>コンテンツ一覧</h4>
+    <div class="pageTitle">
+    <h2>コンテンツ一覧</h2>
+    </div>
 
     <!-- 検索フォーム -->
     <form id="search-form">

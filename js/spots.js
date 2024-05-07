@@ -19,7 +19,7 @@ function initMap() {
             });
 
             // スポット一覧を取得して表示
-            getSpots();
+            // getSpots();
         });
     });
 }
@@ -97,8 +97,8 @@ $(function () {
     });
 
     // 表示切替ボタンのクリックイベント
-    //#list-view-btnがクリックされたら、#spot-listからhideクラスを削除し、#mapにhideクラス追加 → リストが表示され、マップが非表示になる
-    //#map-view-btnがクリックされたら、逆に#spot-listにhideクラスを追加し、#mapからhideクラスを削除 → マップが表示され、リストが非表示になる
+    // #list-view-btnがクリックされたら、#spot-listからhideクラスを削除し、#mapにhideクラス追加 → リストが表示され、マップが非表示になる
+    // #map-view-btnがクリックされたら、逆に#spot-listにhideクラスを追加し、#mapからhideクラスを削除 → マップが表示され、リストが非表示になる
     $('#list-view-btn').click(function () {
         console.log("リスト表示ボタンがクリックされました");
         console.log("spot-listのクラス:", $('#spot-list').attr('class'));
@@ -107,8 +107,12 @@ $(function () {
         $('#map').removeClass('show').addClass('hide');
         console.log("spot-listのクラス（変更後）:", $('#spot-list').attr('class'));
         console.log("mapのクラス（変更後）:", $('#map').attr('class'));
+    
+        // タブのアクティブ状態を切り替える
+        $('#list-view-btn').addClass('active');
+        $('#map-view-btn').removeClass('active');
     });
-
+    
     $('#map-view-btn').click(function () {
         console.log("マップ表示ボタンがクリックされました");
         console.log("spot-listのクラス:", $('#spot-list').attr('class'));
@@ -117,6 +121,10 @@ $(function () {
         $('#map').removeClass('hide').addClass('show');
         console.log("spot-listのクラス（変更後）:", $('#spot-list').attr('class'));
         console.log("mapのクラス（変更後）:", $('#map').attr('class'));
+    
+        // タブのアクティブ状態を切り替える
+        $('#map-view-btn').addClass('active');
+        $('#list-view-btn').removeClass('active');
     });
 });
 

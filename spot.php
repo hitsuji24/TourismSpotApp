@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <?php require 'config/config_googlemap.php'; ?>
+    <link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY; ?>&callback=initMap" async defer></script>
 </head>
 
 <body>
-    <h4>スポット一覧</h4>
+<div class="pageTitle">
+    <h2>スポット一覧</h2>
+    </div>
 
     <!-- 検索フォーム -->
     <form id="search-form">
@@ -47,9 +51,9 @@
 
     <!-- 表示切り替えボタン -->
     <div id="view-switch">
-        <button id="list-view-btn">リスト表示</button>
-        <button id="map-view-btn">マップ表示</button>
-    </div>
+    <button id="list-view-btn" class="view-btn active">リスト表示</button>
+    <button id="map-view-btn" class="view-btn">マップ表示</button>
+</div>
 
     <!-- コンテンツ -->
     <div id="content">

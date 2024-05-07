@@ -38,8 +38,9 @@ $stmt->bindValue(":user_id", $userId, PDO::PARAM_INT);
 $stmt->execute();
 $favoriteSpots = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
+    <div class="pageTitle">
 <h2>お気に入りスポット</h2>
+</div>
 <ul>
     <?php foreach ($favoriteSpots as $spot) : ?>
         <li><a href="detail.php?id=<?= $spot['id'] ?>"><?= htmlspecialchars($spot['name']) ?></a></li>
