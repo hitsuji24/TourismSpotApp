@@ -314,6 +314,9 @@ header h2 {
 }
 
 .action-button {
+  border: none;
+  outline: none;
+  background: transparent;
   background-color: #0F4C75;
   color: white;
   text-decoration: none;
@@ -768,4 +771,120 @@ a {
 .relatedSpot {
   margin-bottom: 80px;
   /* ボトムナビの高さ分の余白を追加 */
+}
+
+/*==================================================
+作品・スポット追加のためのcss
+===================================*/
+/* #spotForm {
+  margin: 16px 24px;
+  overflow: hidden;
+  position: relative;
+  gap: 16px;
+
+  label {
+    display: inline-block;
+    color: gray;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  input {
+    border: 0.1em solid darken(#eee, 6%);
+    padding: 8px;
+    margin-bottom: 16px;
+    max-width: 88.5%;
+  }
+}
+  */
+
+#spotForm {
+margin: 16px 24px 80px;
+}
+
+#spotForm div {
+  margin-bottom: 16px;
+}
+
+#spotForm label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+#spotForm input[type="text"],
+#spotForm textarea,
+#spotForm select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* #spotForm .required {
+    color: red;
+    margin-left: 5px;
+  } */
+
+#spotForm .mainLocation,
+#spotForm .viewLocation {
+  margin-bottom: 30px;
+}
+
+#spotForm #main_map,
+#spotForm #view_map {
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+#spotForm button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #E2DFD0;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#spotForm .action-button {
+  /* 常時ページ下に固定したかったらこれ有効にする */
+  /* position: fixed;
+  bottom: 56px;
+  left: 24px;
+  right: 24px; */
+  text-align: center;
+  padding: 0%;
+  margin-top: 16px;
+}
+
+#spotForm .action-button button {
+  background-color: #0F4C75;
+  color: white;
+  font-size: 16px;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+#spotForm #image-preview {
+  margin-top: 10px;
+}
+
+#spotForm #image-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.searchOptionButtons {
+  display: flex;
+  justify-content: space-between;
 }

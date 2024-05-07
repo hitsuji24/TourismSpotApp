@@ -11,11 +11,10 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $description = $_POST['description'];
-    $category_id = $_POST['category'];
     $main_address = $_POST['main_address'];
     $main_latitude = $_POST['main_latitude'];
     $main_longitude = $_POST['main_longitude'];
-    $view_address = $_POST['view_address'];
+    $view_address = isset($_POST['view_address']) ? $_POST['view_address'] : '';
     $view_latitude = $_POST['view_latitude'];
     $view_longitude = $_POST['view_longitude'];
     $work_id = $_POST['work_id'];
@@ -55,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($name)) {
         $errors['name'] = 'スポット名を入力してください。';
     }
-    if (empty($category_id)) {
-        $errors['category'] = 'カテゴリーを選択してください。';
+    if (empty($description)) {
+        $errors['description'] = '説明を入力してください。';
     }
     if (empty($work_id)) {
         $errors['work'] = '作品を選択してください。';
@@ -67,16 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // spotsテーブルにデータを登録 
         $pdo = db_conn();
         $stmt = $pdo->prepare("INSERT INTO spots (
-            name, description, ar_image_url, category, main_latitude, 
+            name, description, ar_image_url, main_latitude, 
             main_longitude, main_address, creator, view_latitude, view_longitude, view_address
         ) VALUES (
-            :name, :description, :image, :category_id, :main_latitude,
+            :name, :description, :image, :main_latitude,
             :main_longitude, :main_address, :creator, :view_latitude, :view_longitude, :view_address  
         )");
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':description', $description, PDO::PARAM_STR);
         $stmt->bindValue(':image', $image, PDO::PARAM_STR);
-        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
         $stmt->bindValue(':main_latitude', $main_latitude, PDO::PARAM_STR);
         $stmt->bindValue(':main_longitude', $main_longitude, PDO::PARAM_STR);
         $stmt->bindValue(':main_address', $main_address, PDO::PARAM_STR);
@@ -91,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute(array($spot_id, $work_id));
         // 登録完了メッセージを表示してリダイレクト
         $_SESSION['message'] = 'スポットを登録しました。';
-        header('Location: spot.php');
+        header("Location: spot_detail.php?id={$spot_id}");
         exit;
     }
 }

@@ -12,7 +12,9 @@
 </head>
 
 <body>
-<h4>新規登録</h4>
+<div class="pageTitle">
+<h2>新規登録</h2>
+</div>
 
   <form id="signup-form" action="register.php" method="post">
     <label for="">ユーザー名*</label> <br />

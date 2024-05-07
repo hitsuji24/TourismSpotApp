@@ -9,15 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php require 'config/config_googlemap.php'; ?>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY; ?>&callback=initMap" async defer></script>   
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY; ?>&callback=initMap" async defer></script>
 </head>
 
 <body>
-    <h1>スポット追加</h1>
+    <div class="pageTitle">
+        <h2>スポット追加</h2>
+    </div>
+
     <form id="spotForm" action="spot_add_act.php" method="post" enctype="multipart/form-data">
-        <div> <label for="name">スポット名：</label> <span class="required">*</span><input type="text" name="name" required> </div>
-        <div> <label for="description">説明文：</label> <span class="required">*</span><textarea name="description" rows="5" required></textarea> </div>
-        <div> <label for="category">カテゴリー：</label><span class="required">*</span> <select name="category" id="category" required>
+        <div> <label for="name">スポット名：<span class="required">*</span></label><input type="text" name="name" required> </div>
+        <div> <label for="description">説明文：<span class="required">*</span></label><textarea name="description" rows="5" required></textarea> </div>
+        <!-- <div> <label for="category">カテゴリー：<span class="required">*</span></label><select name="category" id="category" required>
                 <option value="">選択してください</option>
                 <?php include("funcs.php");
                 $pdo = db_conn();
@@ -25,45 +28,66 @@
                 while ($category = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
                 } ?>
-            </select> </div>
+            </select> </div> -->
 
         <div class="mainLocation">
-           
+
             <div>
-                <label for="main_address">スポットの所在地にピンを立てる</label><span class="required">*</span>
-                <div id="main_map"></div>
+                <label for="main_address">スポットの所在地</label>
+
                 <div>
-                    <label for="main_latitude">緯度:</label>
+                    <label for="main_latitude">緯度:<span class="required">*</span></label>
                     <input type="text" id="main_latitude" name="main_latitude" readonly>
                 </div>
                 <div>
-                    <label for="main_longitude">経度:</label>
+                    <label for="main_longitude">経度:<span class="required">*</span></label>
                     <input type="text" id="main_longitude" name="main_longitude" readonly>
                 </div>
-                <input type="text" id="main_address" name="main_address">
+                <div id="main_map"></div>
                 <!-- タイプボタンにするとバリデーションチェックが働かない -->
-                <button type="button" onclick="searchAddress('main')">住所で検索</button>
-                <button type="button" onclick="resetToCurrentLocation('main')">現在地にリセット</button>
+                <div class="searchOptionButtons">
+                    <div class="searchByAddress">
+                        <button type="button" id="show-search-address">住所で検索</button>
+                        <div class="search-address hidden">
+                            <input type="text" id="main_address" name="main_address">
+                            <button type="button" onclick="searchAddress('main')" ><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="resetToCurrentLocation">
+                        <button type="button" onclick="resetToCurrentLocation('main')"><i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="viewLocation">
             <!-- 視点位置不明の場合のチェックボックス必要 NULLで登録させる -->
             <div>
-                <label for="view_address">シーン再現の立ち位置にピンを立てる</label><span class="required">*</span>
-                <div id="view_map"></div>
+                <label for="view_address">バミリ位置</label>
 
                 <div>
-                    <label for="view_latitude">緯度:</label>
+                    <label for="view_latitude">緯度:<span class="required">*</span></label>
                     <input type="text" id="view_latitude" name="view_latitude" readonly>
                 </div>
                 <div>
-                    <label for="view_longitude">経度:</label>
+                    <label for="view_longitude">経度:<span class="required">*</span></label>
                     <input type="text" id="view_longitude" name="view_longitude" readonly>
                 </div>
-                <input type="text" id="view_address" name="view_address">
-                <button type="button" onclick="searchAddress('view')">住所で検索</button>
-                <button type="button" onclick="resetToCurrentLocation('view')">現在地にリセット</button>
+                <div id="view_map"></div>
+                <div class="searchOptionButtons">
+                    <div class="searchByAddress">
+                        <button type="button" id="show-search-address">住所で検索</button>
+                        <div class="search-address hidden">
+                            <input type="text" id="main_address" name="main_address">
+                            <button type="button" onclick="searchAddress('main')" ><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="resetToCurrentLocation">
+                        <button type="button" onclick="resetToCurrentLocation('main')"><i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -88,9 +112,30 @@
             <input type="file" name="image" accept="image/*" required>
         </div>
         <div id="image-preview"></div>
-        <button type="submit">登録</button>
+        <div class="action-button">
+            <button type="submit">登録</button>
+        </div>
     </form>
 
+    <!-- ボトムナビ -->
+    <nav class="bottom-nav">
+        <a href="index.php" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+        </a>
+        <a href="works.php" class="nav-item">
+            <i class="fas fa-film"></i>
+            <span>コンテンツ</span>
+        </a>
+        <a href="spot.php" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>スポット</span>
+        </a>
+        <a href="mylist.php" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>マイリスト</span>
+        </a>
+    </nav>
 
     <script>
         let mainMap;
@@ -151,6 +196,10 @@
                 alert('お使いのブラウザは位置情報に対応していません。');
             }
         }
+
+        document.getElementById('show-search-address').addEventListener('click', function() {
+            document.querySelector('.search-address').classList.toggle('hidden');
+        });
 
         function searchAddress(type) {
             const address = document.getElementById(type + '_address').value;

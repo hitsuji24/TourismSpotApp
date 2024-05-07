@@ -12,8 +12,9 @@
 </head>
 
 <body>
-
-  <h4>ログイン</h4>
+<div class="pageTitle">
+  <h2>ログイン</h2>
+  </div>
   <form id="login-form" action="login_act.php" method="post">
     <label for="email">メールアドレス</label> <br />
     <input type="email" name="email" id="email" /> <br />
