@@ -54,12 +54,14 @@
         $spots = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($spots as $spot) {
+            echo '<a href="spot_detail.php?id=' . $spot['id'] . '">';
             echo '<div class="spot-card">';
             echo '<img src="' . $spot['ar_image_url'] . '" alt="' . $spot['name'] . '">';
             echo '<div class="info">';
             echo '<h3>' . $spot['name'] . '</h3>';
             echo '</div>';
             echo '</div>';
+            echo '</a>';
         }
         ?>
     </div>

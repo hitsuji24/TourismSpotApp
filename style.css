@@ -139,10 +139,7 @@ header h2 {
   padding: 0;
 }
 
-#user-info {
-  height: 80px;
 
-}
 
 #button-login {
   color: black;
@@ -173,7 +170,7 @@ header h2 {
 
 #user-info {
   align-items: left;
-  padding: 0 24px;
+  padding: 16px 24px;
 }
 
 #user-info p {
