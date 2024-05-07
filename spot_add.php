@@ -17,9 +17,10 @@
         <h2>スポット追加</h2>
     </div>
 
+    <!-- 必須マークつけたかったらこれ→<span class="required">*</span> -->
     <form id="spotForm" action="spot_add_act.php" method="post" enctype="multipart/form-data">
-        <div> <label for="name">スポット名：<span class="required">*</span></label><input type="text" name="name" required> </div>
-        <div> <label for="description">説明文：<span class="required">*</span></label><textarea name="description" rows="5" required></textarea> </div>
+        <div> <label for="name">スポット名：</label><input type="text" name="name" required> </div>
+        <div> <label for="description">説明文：</label><textarea name="description" rows="5" required></textarea> </div>
         <!-- <div> <label for="category">カテゴリー：<span class="required">*</span></label><select name="category" id="category" required>
                 <option value="">選択してください</option>
                 <?php include("funcs.php");
@@ -36,11 +37,11 @@
                 <label for="main_address">スポットの所在地</label>
 
                 <div>
-                    <label for="main_latitude">緯度:<span class="required">*</span></label>
+                    <label for="main_latitude">緯度:</label>
                     <input type="text" id="main_latitude" name="main_latitude" readonly>
                 </div>
                 <div>
-                    <label for="main_longitude">経度:<span class="required">*</span></label>
+                    <label for="main_longitude">経度:</label>
                     <input type="text" id="main_longitude" name="main_longitude" readonly>
                 </div>
                 <div id="main_map"></div>
@@ -67,11 +68,11 @@
                 <label for="view_address">バミリ位置</label>
 
                 <div>
-                    <label for="view_latitude">緯度:<span class="required">*</span></label>
+                    <label for="view_latitude">緯度:</label>
                     <input type="text" id="view_latitude" name="view_latitude" readonly>
                 </div>
                 <div>
-                    <label for="view_longitude">経度:<span class="required">*</span></label>
+                    <label for="view_longitude">経度:</label>
                     <input type="text" id="view_longitude" name="view_longitude" readonly>
                 </div>
                 <div id="view_map"></div>
@@ -92,7 +93,7 @@
         </div>
 
         <div>
-            <label for="work_id">作品：</label><span class="required">*</span>
+            <label for="work_id">作品：</label>
             <select name="work_id" id="work_id">
                 <option value="">選択してください</option>
                 <?php
