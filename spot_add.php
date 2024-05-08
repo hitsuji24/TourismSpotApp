@@ -38,20 +38,20 @@
 
                 <div>
                     <label for="main_latitude">緯度:</label>
-                    <input type="text" id="main_latitude" name="main_latitude" readonly>
+                    <input type="text" id="main_latitude" name="main_latitude">
                 </div>
                 <div>
                     <label for="main_longitude">経度:</label>
-                    <input type="text" id="main_longitude" name="main_longitude" readonly>
+                    <input type="text" id="main_longitude" name="main_longitude">
                 </div>
                 <div id="main_map"></div>
                 <!-- タイプボタンにするとバリデーションチェックが働かない -->
                 <div class="searchOptionButtons">
                     <div class="searchByAddress">
-                        <button type="button" id="show-search-address">住所で検索</button>
-                        <div class="search-address hidden">
+                        <button type="button" id="show-search-address-main">住所で検索</button>
+                        <div class="search-address main hidden">
                             <input type="text" id="main_address" name="main_address">
-                            <button type="button" onclick="searchAddress('main')" ><i class="fas fa-search"></i></button>
+                            <button type="button" onclick="searchAddress('main')"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <div class="resetToCurrentLocation">
@@ -69,23 +69,23 @@
 
                 <div>
                     <label for="view_latitude">緯度:</label>
-                    <input type="text" id="view_latitude" name="view_latitude" readonly>
+                    <input type="text" id="view_latitude" name="view_latitude">
                 </div>
                 <div>
                     <label for="view_longitude">経度:</label>
-                    <input type="text" id="view_longitude" name="view_longitude" readonly>
+                    <input type="text" id="view_longitude" name="view_longitude">
                 </div>
                 <div id="view_map"></div>
                 <div class="searchOptionButtons">
                     <div class="searchByAddress">
-                        <button type="button" id="show-search-address">住所で検索</button>
-                        <div class="search-address hidden">
-                            <input type="text" id="main_address" name="main_address">
-                            <button type="button" onclick="searchAddress('main')" ><i class="fas fa-search"></i></button>
+                        <button type="button" id="show-search-address-view">住所で検索</button>
+                        <div class="search-address view hidden">
+                            <input type="text" id="view_address" name="view_address">
+                            <button type="button" onclick="searchAddress('view')"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <div class="resetToCurrentLocation">
-                        <button type="button" onclick="resetToCurrentLocation('main')"><i class="fas fa-redo"></i>
+                        <button type="button" onclick="resetToCurrentLocation('view')"><i class="fas fa-redo"></i>
                         </button>
                     </div>
                 </div>
@@ -198,12 +198,42 @@
             }
         }
 
-        document.getElementById('show-search-address').addEventListener('click', function() {
-            document.querySelector('.search-address').classList.toggle('hidden');
+        document.getElementById('show-search-address-main').addEventListener('click', function() {
+            document.querySelector('.search-address.main').classList.toggle('hidden');
         });
 
+        document.getElementById('show-search-address-view').addEventListener('click', function() {
+            document.querySelector('.search-address.view').classList.toggle('hidden');
+        });
+
+        // function searchAddress(type) {
+        //     const address = document.getElementById(type + '_address').value;
+        //     const geocoder = new google.maps.Geocoder();
+        //     geocoder.geocode({
+        //         'address': address
+        //     }, function(results, status) {
+        //         if (status === 'OK') {
+        //             const location = results[0].geometry.location;
+        //             if (type === 'main') {
+        //                 mainMap.setCenter(location);
+        //                 mainMarker.setPosition(location);
+        //                 document.getElementById('main_latitude').value = location.lat();
+        //                 document.getElementById('main_longitude').value = location.lng();
+        //             } else if (type === 'view') {
+        //                 viewMap.setCenter(location);
+        //                 viewMarker.setPosition(location);
+        //                 document.getElementById('view_latitude').value = location.lat();
+        //                 document.getElementById('view_longitude').value = location.lng();
+        //             }
+        //         } else {
+        //             alert('住所から位置を特定できませんでした。');
+        //         }
+        //     });
+        // }
+
         function searchAddress(type) {
-            const address = document.getElementById(type + '_address').value;
+            const addressInput = document.getElementById(type + '_address');
+            const address = addressInput.value;
             const geocoder = new google.maps.Geocoder();
             geocoder.geocode({
                 'address': address
